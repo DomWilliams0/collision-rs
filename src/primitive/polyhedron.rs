@@ -370,13 +370,15 @@ where
         T: Transform<Point3<S>>,
     {
         let p = match self.mode {
-            PolyhedronMode::VertexOnly => self.brute_force_support_point(
+            PolyhedronMode::VertexOnly | PolyhedronMode::HalfEdge  => self.brute_force_support_point(
                 transform.inverse_transform_vector(*direction).unwrap(),
             ),
 
+            /* loops infinitely :(
             PolyhedronMode::HalfEdge => self.hill_climb_support_point(
                 transform.inverse_transform_vector(*direction).unwrap(),
             ),
+            */
         };
         transform.transform_point(p)
     }
